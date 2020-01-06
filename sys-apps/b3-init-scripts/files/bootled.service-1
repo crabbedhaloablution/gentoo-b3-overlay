@@ -1,0 +1,13 @@
+[Unit]
+Description=B3 Front Panel LED
+DefaultDependencies=no
+Before=shutdown.target reboot.target halt.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/b3-led-set 1 0 0
+ExecStop=/usr/sbin/b3-led-set 0 1 1
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,26 @@
+#!/bin/bash
+# Turn B3's front LED green
+#
+# Copyright (c) 2015-18 sakaki <sakaki@deciban.com>
+# Copyright (c) 2020 crabbed halo ablution <crabbedhaloablution@icloud.com>
+# License: GPL 3.0+
+# NO WARRANTY
+
+if [[ $# != 3 ]]; then
+	echo "illegal number of parameters"
+	exit 2
+fi
+
+i=0
+for pos in "${@}"; do
+	((i++))
+	if ! [[ $pos =~ [01] ]]; then
+		echo "Positional parameter number $i was set to $pos."
+		echo "Only 0 and 1 are acceptable values."
+	fi
+done
+unset i
+
+printf "%.1s" $1 > /sys/class/leds/bubba3\:green\:programming/brightness
+printf "%.1s" $2 > /sys/class/leds/bubba3\:red\:error/brightness
+printf "%.1s" $3 > /sys/class/leds/bubba3\:blue\:active/brightness
